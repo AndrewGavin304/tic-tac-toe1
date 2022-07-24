@@ -1,0 +1,17 @@
+.game-board-wrapper {
+  display: grid;
+  place-items: center;
+}
+
+.game-board {
+  display: grid;
+  grid-template: repeat(3, fit-content(200px))/repeat(3, fit-content(200px));
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+  align-self: center;
+  font-size: 72px;
+}
+.game-board__cell {
+  width: 5vw;
+}/*# sourceMappingURL=index.css.map */
