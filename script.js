@@ -1,5 +1,5 @@
 const gameBoard = (() => {
-  const boardArray = Array(9).fill('O');
+  const boardArray = Array(9).fill(undefined);
   const refreshBoard = () => {
     boardArray.forEach((element, i) => {
       const gameBoardCell = document.querySelector(`#cell-${i}`)
@@ -7,10 +7,24 @@ const gameBoard = (() => {
     })
   }
 
-  const placeMarker = () => {
+  const placeMarker = (user) => {
     document.getElementById('game-board').addEventListener('click', event => {
       if (event.target.className === 'game-board__cell') {
-        console.log(event.target.id)
+        const targetCell = event.target.id;
+        
+        // Strips 'cell-' from the cell id, returning a number matching the cell
+        const regex = /(?<=cell-)./;
+        cellNumArray = targetCell.match(regex)
+        cellNum = cellNumArray[0]
+        
+        if (user === userX) {
+          boardArray[cellNum] = 'X';
+        }
+
+        else if (user === userO) {
+          boardArray[cellNum] = 'O'
+        }
+        refreshBoard();
   }
 })
   }
@@ -23,7 +37,7 @@ const playerFactory = (id) => {
 
 const gameMaster = (() => {
   gameBoard.refreshBoard();
-  gameBoard.placeMarker();
+  gameBoard.placeMarker(userX);
   
 })
 

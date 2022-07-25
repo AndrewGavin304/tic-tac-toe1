@@ -16,6 +16,8 @@ html {
     font-size: 72px;
 
     &__cell {
-        width: 5vw;
+        width: 10vw;
+        height: 10vw;
+        border: 1px solid;
     }
 }
