@@ -1,12 +1,20 @@
 const gameBoard = (() => {
-  const boardArray = Array(9).fill('x');
-  const displayBoard = () => {
-    boardArray.forEach((element, i)=> {
+  const boardArray = Array(9).fill('O');
+  const refreshBoard = () => {
+    boardArray.forEach((element, i) => {
       const gameBoardCell = document.querySelector(`#cell-${i}`)
       gameBoardCell.textContent = element;
     })
   }
-  return { displayBoard }
+
+  const placeMarker = () => {
+    document.getElementById('game-board').addEventListener('click', event => {
+      if (event.target.className === 'game-board__cell') {
+        console.log(event.target.id)
+  }
+})
+  }
+  return { refreshBoard, placeMarker }
 })();
 
 const playerFactory = (id) => {
@@ -14,10 +22,12 @@ const playerFactory = (id) => {
 };
 
 const gameMaster = (() => {
-  // gameBoard.displayBoard();
+  gameBoard.refreshBoard();
+  gameBoard.placeMarker();
+  
 })
 
-gameBoard.displayBoard()
+const userX = playerFactory('userX');
+const userO = playerFactory('userO');
 
-const user = playerFactory('user');
-const cpu = playerFactory('cpu');
+gameMaster();
