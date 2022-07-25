@@ -19,10 +19,12 @@ const gameBoard = (() => {
         
         if (user === userX) {
           boardArray[cellNum] = 'X';
+          // targetCell.setAttribute("class", "cell-X")
         }
 
         else if (user === userO) {
           boardArray[cellNum] = 'O'
+          // targetCell.setAttribute("class", "cell-O")
         }
         refreshBoard();
   }
@@ -37,11 +39,23 @@ const playerFactory = (id) => {
 
 const gameMaster = (() => {
   gameBoard.refreshBoard();
-  gameBoard.placeMarker(userX);
-  
-})
+  let currentPlayer = userX;
+
+  function takeTurn(currentPlayer) {
+    gameBoard.placeMarker(currentPlayer);
+  }
+
+  function switchActivePlayer(currentPlayer) {
+    if (currentPlayer === userX) {
+      currentPlayer = userO;
+    }
+    else currentPlayer = userX;
+  }
+
+  return { takeTurn, switchActivePlayer }
+});
 
 const userX = playerFactory('userX');
 const userO = playerFactory('userO');
 
-gameMaster();
+const game = gameMaster();
