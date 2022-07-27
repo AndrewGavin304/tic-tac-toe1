@@ -9,6 +9,29 @@ html {
   border-radius: 8px;
   font-family: "Montserrat", sans-serif;
   color: whitesmoke;
+  grid-template-columns: 1fr 1fr;
+  -moz-column-gap: 100px;
+       column-gap: 100px;
+  row-gap: 20px;
+}
+.game-board-wrapper__title {
+  grid-column: 1/span 2;
+}
+.game-board-wrapper__new-game {
+  padding: 15px;
+  background-color: whitesmoke;
+  color: #547fa7;
+  border: none;
+  border-radius: 8px;
+  justify-self: right;
+}
+.game-board-wrapper__reset {
+  padding: 15px;
+  background-color: whitesmoke;
+  color: #547fa7;
+  border: none;
+  border-radius: 8px;
+  justify-self: left;
 }
 
 .game-board {
@@ -19,6 +42,7 @@ html {
   text-align: center;
   align-self: center;
   font-size: 72px;
+  grid-column: 1/span 2;
 }
 .game-board__cell {
   font-family: "Montserrat", sans-serif;

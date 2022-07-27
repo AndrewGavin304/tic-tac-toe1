@@ -1,12 +1,15 @@
-const playerFactory = (id) => {
-  return { id };
-};
+const playerFactory = ((name, marker) => {
+  const getMarker = () => marker;
+  const getName = () => name;
+  return { getMarker, getName }
 
-const userX = playerFactory('X');
-const userO = playerFactory('O');
+});
+
+let playerX = playerFactory("Jim", 'X')
+let playerO = playerFactory("Bob", 'O')
 
 const gameBoard = (() => {
-  let boardArray = Array(9).fill(undefined);
+  let boardArray = Array(9).fill('');
 
   const getValue = (arrayIndex) => boardArray[arrayIndex];
 
@@ -21,15 +24,16 @@ const gameBoard = (() => {
     return boardArray[targetArrayIndex] ? false : true;
   }
 
-  const placeMarker = (user, targetArrayIndex) => {
+  const placeMarker = (playerMarker, targetArrayIndex) => {
+    boardArray[targetArrayIndex] = playerMarker;
   
-        if (user === userX) {
-          boardArray[targetArrayIndex] = 'X';
-        }
+        // if (player.getMarker() === 'X') {
+        //   boardArray[targetArrayIndex] = 'X';
+        // }
 
-        else if (user === userO) {
-          boardArray[targetArrayIndex] = 'O'
-        }
+        // else if (player.getMarker() === 'O') {
+        //   boardArray[targetArrayIndex] = 'O'
+        // }
 
         refreshBoard();
         if (gameMaster.checkForWinner()){
@@ -37,12 +41,19 @@ const gameBoard = (() => {
         };
   }
 
+  const resetGame = document.getElementById("reset-game");
+
+  resetGame.addEventListener('click', event => {
+    boardArray.fill('');
+    refreshBoard();
+  })
+
   return { refreshBoard, placeMarker, isEmpty, getValue }
 })();
 
 const gameMaster = (() => {
   gameBoard.refreshBoard();
-  let currentPlayer = userX;
+  let currentPlayer = playerX;
 
   document.getElementById('game-board').addEventListener('click', event => {
     if (event.target.className === 'game-board__cell') {
@@ -55,17 +66,26 @@ const gameMaster = (() => {
 
 
       if (gameBoard.isEmpty(cellArrayIndex) === true) {
-        gameBoard.placeMarker(currentPlayer, cellArrayIndex);
+        gameBoard.placeMarker(currentPlayer.getMarker(), cellArrayIndex);
         switchActivePlayer(currentPlayer)
       }
     }
   })
 
-  function switchActivePlayer(user) {
-    if (user === userX) {
-      return currentPlayer = userO;
+  const newGame = document.getElementById("new-game");
+
+  newGame.addEventListener('click', event => {
+    alert("hi")
+  })
+
+  function switchActivePlayer(player) {
+    console.log(player.getName())
+    if (player === playerX){
+      currentPlayer = playerO;
     }
-    else return currentPlayer = userX;
+    else {
+      currentPlayer = playerX;
+    }
   }
 
   const isX = (val) => val === 'X';
@@ -118,8 +138,9 @@ const gameMaster = (() => {
   }
 
   function declareWinner(player){
-    alert(`${player.id} wins!`)
+    alert(`${player.getName()} wins!`)
   }
   
   return { checkRow, checkColumn, checkDiagonal, checkForWinner }
 })();
+
