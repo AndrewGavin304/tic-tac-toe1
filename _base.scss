@@ -21,6 +21,7 @@ html {
     grid-template-columns: 1fr 1fr;
     column-gap: 100px;
     row-gap: 20px;
+    position: relative;
 
     &__title {
         grid-column: 1 / span 2;
@@ -78,4 +79,20 @@ html {
 
 #cell-8 {
     border-bottom-right-radius: 8px;
+}
+
+.new-game-form-wrapper {
+    position: absolute;
+    background-color: whitesmoke;
+    width: 30vw;
+    height: 30vh;
+    color: black;
+    
+    &_hidden {
+        display: none;
+    }
+
+    &_show {
+        display: flex;
+    }
 }

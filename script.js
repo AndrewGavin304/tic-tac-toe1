@@ -5,8 +5,8 @@ const playerFactory = ((name, marker) => {
 
 });
 
-let playerX = playerFactory("Jim", 'X')
-let playerO = playerFactory("Bob", 'O')
+let playerX = playerFactory("X", 'X')
+let playerO = playerFactory("O", 'O')
 
 const gameBoard = (() => {
   let boardArray = Array(9).fill('');
@@ -44,11 +44,15 @@ const gameBoard = (() => {
   const resetGame = document.getElementById("reset-game");
 
   resetGame.addEventListener('click', event => {
-    boardArray.fill('');
-    refreshBoard();
+    resetBoard();
   })
 
-  return { refreshBoard, placeMarker, isEmpty, getValue }
+  const resetBoard = () => {
+    boardArray.fill('');
+    refreshBoard();
+  }
+
+  return { refreshBoard, placeMarker, isEmpty, getValue, resetBoard }
 })();
 
 const gameMaster = (() => {
@@ -75,7 +79,15 @@ const gameMaster = (() => {
   const newGame = document.getElementById("new-game");
 
   newGame.addEventListener('click', event => {
-    alert("hi")
+    gameBoard.resetBoard();
+    // let newGameMenu = document.getElementById("new-game-form-wrapper");
+    // newGameMenu.classList.toggle("new-game-form-wrapper_show");
+    // let submitPlayerName = document.getElementById("submit-player-name");
+    // submitPlayerName.addEventListener('click', event => {
+    //   playerX.changeName("lmao")
+    //   playerO.name = document.getElementById("player-o-name").value;
+    // })
+
   })
 
   function switchActivePlayer(player) {
